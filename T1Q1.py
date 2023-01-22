@@ -27,5 +27,5 @@ for m in graficos:
 plt.ylabel("Eixo y")
 plt.xlabel("Eixo t")
 plt.title("Gráfico de [y=cos(mt)] em função do tempo")
-plt.legend(bbox_to_anchor = (1.3,0.7))
+plt.legend()
 plt.show()

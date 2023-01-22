@@ -55,8 +55,7 @@ for j in range(0 , m+1):
         w = x_i + h[j]* dv_fx(x_i, y_i)
         imagem_xn.append(w)
         z = y_i + h[j]* dv_fy(x_i, y_i)
-        imagem_yn.append(z)
-        #print ("i = " + f"{i}" + "     t = " + f"{t}" + "       y = " + f"{y_i:.1E}" + "        f(x,y) = y' = " + f"{dv_f(y_i,t):.1E}" + "       yk+1 = " + f"{w:.1E}")   
+        imagem_yn.append(z)  
         x_i = w
         y_i = z
     
@@ -97,7 +96,7 @@ for j in range(0 , m+1):
 plt.ylabel("Eixo x")
 plt.xlabel("Eixo t")
 plt.title("Gráfico de [x=....] em função do tempo")
-plt.legend(bbox_to_anchor = (1.3,0.7))
+plt.legend()
 plt.show()
 
 plt.plot (dominio_t,imagem_ye, color = "#000000", label = "Curva y exata")
@@ -107,7 +106,7 @@ for j in range(0 , m+1):
 plt.ylabel("Eixo y")
 plt.xlabel("Eixo t")
 plt.title("Gráfico de [y=...] em função do tempo")
-plt.legend(bbox_to_anchor = (1.3,0.7))
+plt.legend()
 plt.show()
 
 
