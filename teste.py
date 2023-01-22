@@ -16,7 +16,7 @@ def dv_f(y_i, t):
 
 a = 0
 b = 0.25
-N = 4
+N = 8192
 y0 = 1
 x0 = 0
     
@@ -25,13 +25,15 @@ y_i = y0
 
 for i in range (0,N):
     t = a + i * h
-    #w = y_i + h * dv_f(y_i, t)
     w = y_i + h * dv_f(y_i)
-    print ("i = " + f"{i}" + "     t = " + f"{t}" + "       y = " + f"{y_i:.1E}" + "        f(x,y) = y' = " + f"{dv_f(y_i):.1E}" + "       yk+1 = " + f"{w:.1E}")
+    #w = y_i + h * dv_f(y_i, t)
+    #print ("i = " + f"{i}" + "     t = " + f"{t}" + "       y = " + f"{y_i:.1E}" + "        f(x,y) = y' = " + f"{dv_f(y_i):.1E}" + "       yk+1 = " + f"{w:.1E}")
     #print ("i = " + f"{i}" + "     t = " + f"{t}" + "       y = " + f"{y_i:.1E}" + "        f(x,y) = y' = " + f"{dv_f(y_i,t):.1E}" + "       yk+1 = " + f"{w:.1E}")
     y_i = w
 
-ex = y(1)
+t += h
+print (t)
+ex = y(t)
 erro = ex - w
 
 print("\nyexato =" + f"{ex:.1E}" + "    ynum =   " + f"{w:.1E}" ); 
