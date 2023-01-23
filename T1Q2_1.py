@@ -53,7 +53,7 @@ for j in range(0 , m+1):
 
 l = j = 0
 
-with open("behavior_convergence.txt", 'w', encoding='utf-8') as file2:
+with open("behavior_convergence_Q2_1.txt", 'w', encoding='utf-8') as file2:
         file2.write("ORDER BEHAVIOR CONVERGENCE TABLE\n");
         for i in range (0, m+1):
             if i<1:
