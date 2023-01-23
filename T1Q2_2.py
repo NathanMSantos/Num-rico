@@ -92,8 +92,13 @@ while (t<=b):
 
 plt.plot (dominio_t,imagem_xe, color = "#000000", label = "Curva x exata")
 for j in range(0 , m+1):
-  if j == 6 or j == 9 or j == 12:  
+  if j == 2:  
+    plt.plot (matriz_t[j],matriz_xn[j], color = "#000000", linestyle = "-.", label = "Curva x numérica " + f"{j}")
+  if j == 5:
+    plt.plot (matriz_t[j],matriz_xn[j], color = "#000000", linestyle = ":", label = "Curva x numérica " + f"{j}")
+  if j == 9:
     plt.plot (matriz_t[j],matriz_xn[j], color = "#000000", linestyle = "--", label = "Curva x numérica " + f"{j}")
+
 plt.ylabel("Eixo x")
 plt.xlabel("Eixo t")
 plt.title("Gráfico de [x=....] em função do tempo")
@@ -102,13 +107,18 @@ plt.show()
 
 plt.plot (dominio_t,imagem_ye, color = "#000000", label = "Curva y exata")
 for j in range(0 , m+1):
-   if j == 6 or j == 9 or j == 12:   
+   if j == 2:   
+    plt.plot (matriz_t[j],matriz_yn[j], color = "#000000", linestyle = "-.", label = "Curva y numérica " + f"{j}")
+   if j == 5:
+    plt.plot (matriz_t[j],matriz_yn[j], color = "#000000", linestyle = "", label = "Curva y numérica " + f"{j}")
+   if j == 9:
     plt.plot (matriz_t[j],matriz_yn[j], color = "#000000", linestyle = "--", label = "Curva y numérica " + f"{j}")
+
 plt.ylabel("Eixo y")
 plt.xlabel("Eixo t")
 plt.title("Gráfico de [y=...] em função do tempo")
 plt.legend()
-plt.show()
+plt.show() 
 
 
 with open("behavior_convergence_Q2_2.txt", 'w', encoding='utf-8') as file2:
@@ -123,3 +133,4 @@ with open("behavior_convergence_Q2_2.txt", 'w', encoding='utf-8') as file2:
                 file2.write("{:5d} & {:9.3e} & {:9.3e} & {:9.3e}\\\\\n".format(int(math.pow(2, i+2)),h[j],vetornorma_max[i],p[l]))  
                 l+=1
             j+=1
+ 

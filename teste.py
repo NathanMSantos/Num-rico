@@ -1,41 +1,136 @@
+import matplotlib.pyplot as plt
 import math
 
+#declarações
+imagem_xe = []
+imagem_ye = []
+imagem_xn = []
+imagem_yn = []
+dominio_t = []
+matriz_xn = []
+matriz_yn = []
+matriz_t = []
+vetorerro_x = []
+vetorerro_y = []
+vetornorma_max = []
+
+#funções trabalhadas e suas derivadas
+def x(t):
+    return((math.pow(math.e,-t))*((math.cos(t))-3*math.sin(t)))
+
 def y(t):
-    x = (-100*t)
-    return(math.pow(math.e,-100*t))
+    return((math.pow(math.e,-t))*((math.cos(t))-math.sin(t)))
 
-def dv_f(y_i):
-    return (-100*y_i)
+def dv_fx(x_i,y_i):
+    return (x_i-5*y_i)
+
+def dv_fy(x_i, y_i):
+    return (x_i-3*y_i)
 
 
-"""def y(t):
-   return((math.sin(2*t*math.pi))*(math.pow(math.e,-0.2*t)))
-
-def dv_f(y_i, t):
-    return (-0.2*y_i+2*math.pi*(math.cos(2*t*math.pi))*(math.pow(math.e,-0.2*t)))"""
-
+#intervalos de trabalho, m, h e valores iniciais p as variaveis 
 a = 0
-b = 0.25
-N = 8192
-y0 = 1
-x0 = 0
+b = 2
+m = 12
+h = []
+p = []
+t01 = 0
+x01 = 1
+y01 = 1
+l = 1
+
+for j in range(0 , m+1):
+    N = int(math.pow(2, j+2))
+    h.append( (b - a) / N)
     
-h = (b - a)/N
-y_i = y0
+    x_i = x01      
+    y_i = y01
+    imagem_xn = []
+    imagem_yn = []
+    dominio_t = []
+    imagem_xn.insert(0, x01) 
+    imagem_yn.insert(0, y01)
 
-for i in range (0,N):
-    t = a + i * h
-    w = y_i + h * dv_f(y_i)
-    #w = y_i + h * dv_f(y_i, t)
-    #print ("i = " + f"{i}" + "     t = " + f"{t}" + "       y = " + f"{y_i:.1E}" + "        f(x,y) = y' = " + f"{dv_f(y_i):.1E}" + "       yk+1 = " + f"{w:.1E}")
-    #print ("i = " + f"{i}" + "     t = " + f"{t}" + "       y = " + f"{y_i:.1E}" + "        f(x,y) = y' = " + f"{dv_f(y_i,t):.1E}" + "       yk+1 = " + f"{w:.1E}")
-    y_i = w
+    for i in range (0,N):
+        t = a + i * h[j]
+        dominio_t.append(t)
+        w = x_i + h[j]* dv_fx(x_i, y_i)
+        imagem_xn.append(w)
+        z = y_i + h[j]* dv_fy(x_i, y_i)
+        imagem_yn.append(z)  
+        x_i = w
+        y_i = z
+    
+    dominio_t.append(b)
+    erro_x = x(b) - w
+    erro_y = y(b) - z
 
-t += h
-print (t)
-ex = y(t)
-erro = ex - w
+    matriz_xn.append(imagem_xn)
+    matriz_yn.append(imagem_yn)
+    matriz_t.append(dominio_t)
+    vetorerro_x.append(erro_x) 
+    vetorerro_y.append(erro_y)
+    if (abs(erro_x)>abs(erro_y)):
+        vetornorma_max.append(abs(erro_x))
+    else:
+        vetornorma_max.append(abs(erro_y))
+    if j > 0:
+        p.append(math.log(abs(vetornorma_max[l-1]/vetornorma_max[l]),10)/math.log((h[l-1]/h[l]),10))
+        l+=1
 
-print("\nyexato =" + f"{ex:.1E}" + "    ynum =   " + f"{w:.1E}" ); 
-print("n = %5d      h = %9.3e   erro = %9.3e \n" % (N,h, erro)); 
-  
+print(vetornorma_max)
+print("\n")
+print(p)
+
+t=a
+
+for i in range(1,m+1):
+    n=16*2**(i-1); 
+    if i>2:
+        q_x = abs((matriz_xn[i-3][0]-matriz_xn[i-2][0])/(matriz_xn[i-2][0]-matriz_xn[i-1][0]));
+        q_y = abs((matriz_yn[i-3][0]-matriz_yn[i-2][0])/(matriz_yn[i-2][0]-matriz_yn[i-1][0]));
+            
+        p_x = math.log(q_x)/math.log(2);
+        p_y = math.log(q_y)/math.log(2);
+
+        print(p_x, p_y)
+
+while (t<=b):
+    imagem_xe.insert(i, x(t)) 
+    imagem_ye.insert(i, y(t))        
+    t += h[j]
+    i += 1
+
+plt.plot (dominio_t,imagem_xe, color = "#000000", label = "Curva x exata")
+for j in range(0 , m+1):
+  if j == 6 or j == 9 or j == 12:  
+    plt.plot (matriz_t[j],matriz_xn[j], color = "#000000", linestyle = "--", label = "Curva x numérica " + f"{j}")
+plt.ylabel("Eixo x")
+plt.xlabel("Eixo t")
+plt.title("Gráfico de [x=....] em função do tempo")
+plt.legend()
+plt.show()
+
+plt.plot (dominio_t,imagem_ye, color = "#000000", label = "Curva y exata")
+for j in range(0 , m+1):
+   if j == 6 or j == 9 or j == 12:   
+    plt.plot (matriz_t[j],matriz_yn[j], color = "#000000", linestyle = "--", label = "Curva y numérica " + f"{j}")
+plt.ylabel("Eixo y")
+plt.xlabel("Eixo t")
+plt.title("Gráfico de [y=...] em função do tempo")
+plt.legend()
+plt.show()
+
+
+with open("behavior_convergence_Q2_2.txt", 'w', encoding='utf-8') as file2:
+        file2.write("ORDER BEHAVIOR CONVERGENCE TABLE\n");
+        j=l=0
+        for i in range (0, m+1):
+            if i<1:
+                #print(" %5d  %9.3e  %9.3e \n" % (math.pow(2, i+2),h, erro[i]));
+                file2.write("{:5d} & {:9.3e} & {:9.3e}\\\\\n".format(int(math.pow(2, i+2)),h[j],vetornorma_max[i]))   
+            else:
+                #print(" %5d  %9.3e  %9.3e  %9.3e \n" % (math.pow(2, i+2),h, erro[i], q[l]));
+                file2.write("{:5d} & {:9.3e} & {:9.3e} & {:9.3e}\\\\\n".format(int(math.pow(2, i+2)),h[j],vetornorma_max[i],p[l]))  
+                l+=1
+            j+=1
