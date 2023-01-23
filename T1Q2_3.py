@@ -77,17 +77,6 @@ for j in range(0 , m+1):
 
 l = j = 0
 
-""" for j in range(0 , m+1):
-    print (matriz_t[j])
-    print ("t\nx")
-    print (matriz_xn[j])
-    print ("x\ny")
-    print (matriz_yn[j])
-    print ("\n") 
-
- """
-
-
 #plt.plot (matriz_t[12],matriz_xn[12], color = "#000000", linestyle = "-", label = "Curva x numérica " + f"{12}")
 plt.plot (matriz_t[12],matriz_xn[12], color = "#000000", linestyle = "-", label = "Presa ")
 # plt.plot (matriz_t[5],matriz_xn[5], color = "#000000", linestyle = "-", label = "Presa ")
@@ -103,17 +92,3 @@ plt.xlabel("Tempo")
 plt.title("Presa x Predador")
 plt.legend()
 plt.show()
-
- 
-
-""" with open("behavior_convergence.txt", 'w', encoding='utf-8') as file2:
-        file2.write("ORDER BEHAVIOR CONVERGENCE TABLE\n");
-        for i in range (0, m+1):
-            if i<1:
-                #print(" %5d  %9.3e  %9.3e \n" % (math.pow(2, i+2),h, erro[i]));
-                file2.write("{:5d} & {:9.3e} & {:9.3e}\\\\\n".format(int(math.pow(2, i+2)),h[j],erro[i]))   
-            else:
-                #print(" %5d  %9.3e  %9.3e  %9.3e \n" % (math.pow(2, i+2),h, erro[i], q[l]));
-                file2.write("{:5d} & {:9.3e} & {:9.3e} & {:9.3e}\\\\\n".format(int(math.pow(2, i+2)),h[j],erro[i],q[l]))  
-                l+=1
-            j+=1 """
