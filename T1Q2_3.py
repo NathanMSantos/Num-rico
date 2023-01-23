@@ -40,6 +40,10 @@ y_aprox = []
 
 eta_x = []
 eta_y = []
+p_x = []
+p_y = []
+p_x_norma = []
+p_y_norma = []
 k
 
 for j in range(0 , m+1):
@@ -68,12 +72,14 @@ for j in range(0 , m+1):
             eta_y.append(w_y)
 
     if j >= 2:
-        p_x = abs((eta_x[j-2] - eta_x[j-1]) / (eta_x[j-1] - eta_x[j] ))
-        p_y = abs((eta_y[j-2] - eta_y[j-1]) / (eta_y[j-1] - eta_y[j] ))
-        print(N, math.log2(p_x), math.log2(p_y))
-        p_norma.append(numpy.log2( math.sqrt( math.pow(p_x,2) + math.pow(p_y, 2)) ))
-        #print (N, p_norma[k])
-        #k+=1
+        p_x.append(abs((eta_x[j-2] - eta_x[j-1]) / (eta_x[j-1] - eta_x[j] )))
+        p_y.append(abs((eta_y[j-2] - eta_y[j-1]) / (eta_y[j-1] - eta_y[j] )))
+        p_x_norma.append(math.log2(abs((eta_x[j-2] - eta_x[j-1]) / (eta_x[j-1] - eta_x[j] ))))
+        p_y_norma.append(math.log2(abs((eta_y[j-2] - eta_y[j-1]) / (eta_y[j-1] - eta_y[j] ))))
+        #print(N, math.log2(p_x), math.log2(p_y))
+        p_norma.append(numpy.log2( math.sqrt(math.pow(p_x[k],2) + math.pow(p_y[k], 2)) ))
+        print(N, p_norma[k])
+        k+=1
 
     dominio_t.append(b)        
     matriz_xn.append(x_aprox)
@@ -103,3 +109,17 @@ plt.title("Presa x Predador")
 plt.legend()
 plt.show()
  """
+
+with open("behavior_convergence_Q2_3.txt", 'w', encoding='utf-8') as file2:
+        file2.write("ORDER BEHAVIOR CONVERGENCE TABLE\n");
+        j=l=0
+        for i in range (0, m+1):
+            if i<=1:
+                #print(" %5d  %9.3e  %9.3e \n" % (math.pow(2, i+2),h, erro[i]));
+                file2.write("{:5d} & {:9.3e}\\\\\n".format(int(math.pow(2, i+2)),h[j]))   
+            else:
+                #print(" %5d  %9.3e  %9.3e  %9.3e \n" % (math.pow(2, i+2),h, erro[i], q[l]));
+                file2.write("{:5d} & {:9.3e} & {:9.3e} & {:9.3e} & {:9.3e}\\\\\n".format(int(math.pow(2, i+2)),h[j],p_x_norma[l],p_y_norma[l], p_norma[l]))  
+                l+=1
+            j+=1
+ 
