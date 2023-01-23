@@ -25,10 +25,10 @@ y0=1 """
 m = 12
 
 erro = []
-q = []
+p = []
 h = []
 k = 0
-l = 0
+l = 1
 
 y_i = y0
 
@@ -47,13 +47,13 @@ for j in range(0 , m+1):
             #print (i+1, f"{erro[k]: .9E}")
             k+=1
     if j > 0:
-        q.append(abs(erro[l]/erro[l+1]))
+        p.append(math.log(abs(erro[l-1]/erro[l]),10)/math.log((h[l-1]/h[l]),10))
         #print (j, f"{erro[l]: .9E}", f"{erro[l+1]: .9E}", f"{q[l]: .5E}" )
         l+=1
 
 l = j = 0
 
-with open("behavior_convergence.txt", 'w', encoding='utf-8') as file2:
+with open("behavior_convergence_Q2_1.txt", 'w', encoding='utf-8') as file2:
         file2.write("ORDER BEHAVIOR CONVERGENCE TABLE\n");
         for i in range (0, m+1):
             if i<1:
@@ -61,6 +61,6 @@ with open("behavior_convergence.txt", 'w', encoding='utf-8') as file2:
                 file2.write("{:5d} & {:9.3e} & {:9.3e}\\\\\n".format(int(math.pow(2, i+2)),h[j],erro[i]))   
             else:
                 #print(" %5d  %9.3e  %9.3e  %9.3e \n" % (math.pow(2, i+2),h, erro[i], q[l]));
-                file2.write("{:5d} & {:9.3e} & {:9.3e} & {:9.3e}\\\\\n".format(int(math.pow(2, i+2)),h[j],erro[i],q[l]))  
+                file2.write("{:5d} & {:9.3e} & {:9.3e} & {:9.3e}\\\\\n".format(int(math.pow(2, i+2)),h[j],erro[i],p[l]))  
                 l+=1
             j+=1

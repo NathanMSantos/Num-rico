@@ -12,6 +12,7 @@ matriz_yn = []
 matriz_t = []
 vetorerro_x = []
 vetorerro_y = []
+vetornorma_max = []
 
 #funções trabalhadas e suas derivadas
 def x(t):
@@ -32,10 +33,11 @@ a = 0
 b = 2
 m = 12
 h = []
+p = []
 t01 = 0
 x01 = 1
 y01 = 1
-l = 0
+l = 1
 
 for j in range(0 , m+1):
     N = int(math.pow(2, j+2))
@@ -67,27 +69,26 @@ for j in range(0 , m+1):
     matriz_yn.append(imagem_yn)
     matriz_t.append(dominio_t)
     vetorerro_x.append(erro_x) 
-    vetorerro_y.append(erro_y)    
+    vetorerro_y.append(erro_y)
+    if (abs(erro_x)>abs(erro_y)):
+        vetornorma_max.append(abs(erro_x))
+    else:
+        vetornorma_max.append(abs(erro_y))
+    if j > 0:
+        p.append(math.log(abs(vetornorma_max[l-1]/vetornorma_max[l]),10)/math.log((h[l-1]/h[l]),10))
+        l+=1
+
+print(vetornorma_max)
+print("\n")
+print(p)
 
 t=a
+
 while (t<=b):
     imagem_xe.insert(i, x(t)) 
     imagem_ye.insert(i, y(t))        
     t += h[j]
     i += 1
-
-"""
-for j in range(0 , m+1):
-    print (matriz_t[j])
-    print ("t\nx")
-    print (matriz_xn[j])
-    print ("x\ny")
-    print (matriz_yn[j])
-    print ("\n")
-
-print (imagem_xe)
-print ("xe\nye")
-print (imagem_ye)"""
 
 plt.plot (dominio_t,imagem_xe, color = "#000000", label = "Curva x exata")
 for j in range(0 , m+1):
@@ -101,7 +102,7 @@ plt.show()
 
 plt.plot (dominio_t,imagem_ye, color = "#000000", label = "Curva y exata")
 for j in range(0 , m+1):
-   if j == 0 or j == 6 or j == 12:   
+   if j == 6 or j == 9 or j == 12:   
     plt.plot (matriz_t[j],matriz_yn[j], color = "#000000", linestyle = "--", label = "Curva y numérica " + f"{j}")
 plt.ylabel("Eixo y")
 plt.xlabel("Eixo t")
@@ -110,4 +111,15 @@ plt.legend()
 plt.show()
 
 
-
+with open("behavior_convergence_Q2_2.txt", 'w', encoding='utf-8') as file2:
+        file2.write("ORDER BEHAVIOR CONVERGENCE TABLE\n");
+        j=l=0
+        for i in range (0, m+1):
+            if i<1:
+                #print(" %5d  %9.3e  %9.3e \n" % (math.pow(2, i+2),h, erro[i]));
+                file2.write("{:5d} & {:9.3e} & {:9.3e}\\\\\n".format(int(math.pow(2, i+2)),h[j],vetornorma_max[i]))   
+            else:
+                #print(" %5d  %9.3e  %9.3e  %9.3e \n" % (math.pow(2, i+2),h, erro[i], q[l]));
+                file2.write("{:5d} & {:9.3e} & {:9.3e} & {:9.3e}\\\\\n".format(int(math.pow(2, i+2)),h[j],vetornorma_max[i],p[l]))  
+                l+=1
+            j+=1
