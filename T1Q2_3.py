@@ -1,5 +1,6 @@
 
 import math
+import numpy
 
 """ def y(t):
     return (70/9) * math.pow(math.e, -0.3*t) - (43/9) * math.pow(math.e, -1.2*t)
@@ -16,15 +17,18 @@ a = 0
 b = 5
 x0 = 2
 y0 = 1
-m = 12
+m  = 12
 
-erro_x = []
-erro_y = []
-q_x = []
-q_y = []
-h = []
-k = 0
-l = 0
+erro_x  = []
+erro_y  = []
+q_x     = []
+q_y     = []
+h       = []
+#p_x     = []
+#p_y     = []
+p_norma = []
+k       = 0
+l       = 0
 
 x_i = x0
 y_i = y0
@@ -32,14 +36,15 @@ y_i = y0
 x_aprox = []
 y_aprox = []
 
-x_aprox.append(x0)
-y_aprox.append(y0)
-
 for j in range(0 , m+1):
     N = int(math.pow(2, j+2))
     h.append( (b - a) / N)
     x_i=x0
     y_i = y0
+
+    x_aprox.append(x0)
+    y_aprox.append(y0)
+
     #print( "h N M", h, N, j)
     for i in range (0, N):
         t = a + i * h[j]
@@ -52,12 +57,19 @@ for j in range(0 , m+1):
         y_i = w_y
         y_aprox.append(w_y)
 
-    if j > 0:
-        
-        #print (j, f"{erro[l]: .9E}", f"{erro[l+1]: .9E}", f"{q[l]: .5E}" )
-        l+=1
+        if i == N-1:
+            p_x = (numpy.log2(abs((x_aprox[i-3] - x_aprox[i-2]) / (x_aprox[i-2] - x_aprox[i-1] ))))
+            p_y = (numpy.log2(abs((y_aprox[i-3] - y_aprox[i-2]) / (y_aprox[i-2] - y_aprox[i-1] ))))
+            print(N, p_x, p_y)
+            #p_norma.append(numpy.log2( math.sqrt( math.pow(p_x,2) + math.pow(p_y, 2)) ))
+            #print (N, p_norma[j])
+            
+    
+    x_aprox.clear()
+    y_aprox.clear()
 
 l = j = 0
+
 
 
 
