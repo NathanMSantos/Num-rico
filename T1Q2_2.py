@@ -1,12 +1,19 @@
 import matplotlib.pyplot as plt
 import math
 
+#declarações
 imagem_xe = []
 imagem_ye = []
 imagem_xn = []
 imagem_yn = []
 dominio_t = []
+matriz_xn = []
+matriz_yn = []
+matriz_t = []
+vetorerro_x = []
+vetorerro_y = []
 
+#funções trabalhadas e suas derivadas
 def x(t):
     return((math.pow(math.e,-t))*((math.cos(t))-3*math.sin(t)))
 
@@ -19,97 +26,88 @@ def dv_fx(x_i,y_i):
 def dv_fy(x_i, y_i):
     return (x_i-3*y_i)
 
+
+#intervalos de trabalho, m, h e valores iniciais p as variaveis 
 a = 0
-b = 10
-N = 1000000
-x01 = 0
+b = 2
+m = 12
+h = []
+t01 = 0
+x01 = 1
 y01 = 1
-x02 = 0
-y02 = 1
+l = 0
+
+for j in range(0 , m+1):
+    N = int(math.pow(2, j+2))
+    h.append( (b - a) / N)
     
-h = (b - a)/N
+    x_i = x01      
+    y_i = y01
+    imagem_xn = []
+    imagem_yn = []
+    dominio_t = []
+    imagem_xn.insert(0, x01) 
+    imagem_yn.insert(0, y01)
 
-y_i = y01
-x_i = x01
+    for i in range (0,N):
+        t = a + i * h[j]
+        dominio_t.append(t)
+        w = x_i + h[j]* dv_fx(x_i, y_i)
+        imagem_xn.append(w)
+        z = y_i + h[j]* dv_fy(x_i, y_i)
+        imagem_yn.append(z)  
+        x_i = w
+        y_i = z
+    
+    dominio_t.append(b)
+    erro_x = x(b) - w
+    erro_y = y(b) - z
 
-imagem_xn.insert(0, x01) 
-imagem_yn.insert(0, y02)
+    matriz_xn.append(imagem_xn)
+    matriz_yn.append(imagem_yn)
+    matriz_t.append(dominio_t)
+    vetorerro_x.append(erro_x) 
+    vetorerro_y.append(erro_y)    
 
-for i in range (0,N):
-    w = x_i + h * dv_fx(x_i, y_i)
-    imagem_xn.append(w)
-    z = y_i + h * dv_fy(x_i, y_i)
-    imagem_yn.append(z)
-    #print ("i = " + f"{i}" + "     t = " + f"{t}" + "       y = " + f"{y_i:.1E}" + "        f(x,y) = y' = " + f"{dv_f(y_i,t):.1E}" + "       yk+1 = " + f"{w:.1E}")   
-    x_i = w
-    y_i = z
-
-ex_x = x(b)
-ex_y = y(b)
-erro_x = ex_x - w
-erro_y = ex_y - z
-
-print("\nyexat_x =" + f"{ex_x:.1E}" + "    ynum_x =   " + f"{w:.1E}" )
-print("yexat_y =" + f"{ex_y:.1E}" + "    ynum_y =   " + f"{z:.1E}" ) 
-print("\nn = %9.3e      h = %9.3e   erro_x = %9.3e    erro_y = %9.3e  \n" % (N,h, erro_x, erro_y)) 
-
-t=0
-i=1
-
+t=a
 while (t<=b):
-    dominio_t.insert(i, t)
     imagem_xe.insert(i, x(t)) 
     imagem_ye.insert(i, y(t))        
-    t += h
+    t += h[j]
     i += 1
 
+"""
+for j in range(0 , m+1):
+    print (matriz_t[j])
+    print ("t\nx")
+    print (matriz_xn[j])
+    print ("x\ny")
+    print (matriz_yn[j])
+    print ("\n")
+
+print (imagem_xe)
+print ("xe\nye")
+print (imagem_ye)"""
+
 plt.plot (dominio_t,imagem_xe, color = "#000000", label = "Curva x exata")
-plt.plot (dominio_t,imagem_xn, color = "#000000", linestyle = "--", label = "Curva x numérica")
+for j in range(0 , m+1):
+  if j == 6 or j == 9 or j == 12:  
+    plt.plot (matriz_t[j],matriz_xn[j], color = "#000000", linestyle = "--", label = "Curva x numérica " + f"{j}")
 plt.ylabel("Eixo x")
 plt.xlabel("Eixo t")
 plt.title("Gráfico de [x=....] em função do tempo")
-plt.legend(bbox_to_anchor = (1.3,0.7))
+plt.legend()
 plt.show()
 
 plt.plot (dominio_t,imagem_ye, color = "#000000", label = "Curva y exata")
-plt.plot (dominio_t,imagem_yn, color = "#000000", linestyle = "--", label = "Curva y numérica")
+for j in range(0 , m+1):
+   if j == 0 or j == 6 or j == 12:   
+    plt.plot (matriz_t[j],matriz_yn[j], color = "#000000", linestyle = "--", label = "Curva y numérica " + f"{j}")
 plt.ylabel("Eixo y")
 plt.xlabel("Eixo t")
 plt.title("Gráfico de [y=...] em função do tempo")
-plt.legend(bbox_to_anchor = (1.3,0.7))
+plt.legend()
 plt.show()
 
 
 
-"""
-u_i = 3
-dv1u_i = -4
-
-def f(t, u_i, dv1u_i):
-    t = a + i * h
-    #uma genérica, tem que pedir o usuário para digitar a equação
-    #print("t e w(em f):", t, w)
-    return (-(dv1u_i*dv1u_i*u_i)+(t*t*u_i*u_i))
-
-b, N = input("Digite os valor b do intervalo [2,b] e o número de divisões N:").split()
-
-a = u_i
-b = float(b)
-N = int(N)
-
-h = (b - a)/N
-t = a
- 
-print ("h, t e u(2): ", h, t, u_i)
-
-for i in range (1, N+1):
-    u = u_i + h * dv1u_i
-    t = a + i * h
-    print("%5d & %9.3e  \\\\" % (i,u))
-
-t = a
-for i in range (1, N+1):
-    dv2u_i = dv1u_i + h * f(t, u_i, dv1u_i)
-    t = a + i * h
-    print("%5d & %9.3e  \\\\" % (i,dv2u_i)); 
-"""
