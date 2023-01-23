@@ -12,6 +12,7 @@ matriz_yn = []
 matriz_t = []
 vetorerro_x = []
 vetorerro_y = []
+vetornorma_max = []
 
 #funções trabalhadas e suas derivadas
 def x(t):
@@ -67,8 +68,10 @@ for j in range(0 , m+1):
     matriz_yn.append(imagem_yn)
     matriz_t.append(dominio_t)
     vetorerro_x.append(erro_x) 
-    vetorerro_y.append(erro_y)    
+    vetorerro_y.append(erro_y)
+    vetornorma_max.append(math.sqrt(math.pow(erro_x,2)+math.pow(erro_y,2)))
 
+print(vetornorma_max)
 t=a
 while (t<=b):
     imagem_xe.insert(i, x(t)) 
@@ -101,7 +104,7 @@ plt.show()
 
 plt.plot (dominio_t,imagem_ye, color = "#000000", label = "Curva y exata")
 for j in range(0 , m+1):
-   if j == 0 or j == 6 or j == 12:   
+   if j == 6 or j == 9 or j == 12:   
     plt.plot (matriz_t[j],matriz_yn[j], color = "#000000", linestyle = "--", label = "Curva y numérica " + f"{j}")
 plt.ylabel("Eixo y")
 plt.xlabel("Eixo t")
