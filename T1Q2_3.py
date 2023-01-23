@@ -21,8 +21,6 @@ q_x     = []
 q_y     = []
 h       = []
 dominio_t = []
-#p_x     = []
-#p_y     = []
 p_norma = []
 k       = 0
 l       = 0
@@ -55,7 +53,6 @@ for j in range(0 , m+1):
     x_aprox.append(x0)
     y_aprox.append(y0)
 
-    #print( "h N M", h, N, j)
     for i in range (0, N):
         t = a + i * h[j]
         dominio_t.append(t)
@@ -76,9 +73,7 @@ for j in range(0 , m+1):
         p_y.append(abs((eta_y[j-2] - eta_y[j-1]) / (eta_y[j-1] - eta_y[j] )))
         p_x_norma.append(math.log2(abs((eta_x[j-2] - eta_x[j-1]) / (eta_x[j-1] - eta_x[j] ))))
         p_y_norma.append(math.log2(abs((eta_y[j-2] - eta_y[j-1]) / (eta_y[j-1] - eta_y[j] ))))
-        #print(N, math.log2(p_x), math.log2(p_y))
         p_norma.append(numpy.log2( math.sqrt(math.pow(p_x[k],2) + math.pow(p_y[k], 2)) ))
-        print(N, p_norma[k])
         k+=1
 
     dominio_t.append(b)        
