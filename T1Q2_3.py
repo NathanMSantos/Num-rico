@@ -2,10 +2,6 @@ import matplotlib.pyplot as plt
 import math
 import numpy
 
-""" def y(t):
-    return (70/9) * math.pow(math.e, -0.3*t) - (43/9) * math.pow(math.e, -1.2*t)
- """
-
 def dv_x(x_i, y_i):
     return 1.2*x_i - 0.6*x_i*y_i
 
@@ -14,7 +10,7 @@ def dv_y(x_i, y_i):
 
  
 a = 0
-b = 20
+b = 100
 x0 = 2
 y0 = 1
 m  = 12
@@ -93,10 +89,14 @@ l = j = 0
 
 
 #plt.plot (matriz_t[12],matriz_xn[12], color = "#000000", linestyle = "-", label = "Curva x numérica " + f"{12}")
-plt.plot (matriz_t[6],matriz_xn[6], color = "#000000", linestyle = "-", label = "Presa ")
+plt.plot (matriz_t[12],matriz_xn[12], color = "#000000", linestyle = "-", label = "Presa ")
+# plt.plot (matriz_t[5],matriz_xn[5], color = "#000000", linestyle = "-", label = "Presa ")
+
 
 #plt.plot (matriz_t[12],matriz_yn[12], color = "#000000", linestyle = ":", label = "Curva y numérica " + f"{12}")
-plt.plot (matriz_t[6],matriz_yn[6], color = "#000000", linestyle = "-.", label = "Predador")
+plt.plot (matriz_t[12],matriz_yn[12], color = "#000000", linestyle = "-.", label = "Predador")
+# plt.plot (matriz_t[5],matriz_yn[5], color = "#000000", linestyle = "-.", label = "Predador")
+
 
 plt.ylabel("Espécie competindo")
 plt.xlabel("Tempo")

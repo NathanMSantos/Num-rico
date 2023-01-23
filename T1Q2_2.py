@@ -101,7 +101,7 @@ for j in range(0 , m+1):
 
 plt.ylabel("Eixo x")
 plt.xlabel("Eixo t")
-plt.title("Gráfico de [x=....] em função do tempo")
+plt.title("Gráfico de x(t) em função do tempo")
 plt.legend()
 plt.show()
 
@@ -116,7 +116,7 @@ for j in range(0 , m+1):
 
 plt.ylabel("Eixo y")
 plt.xlabel("Eixo t")
-plt.title("Gráfico de [y=...] em função do tempo")
+plt.title("Gráfico de y(t) em função do tempo")
 plt.legend()
 plt.show() 
 
