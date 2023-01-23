@@ -10,7 +10,7 @@ def dv_y(x_i, y_i):
 
  
 a = 0
-b = 100
+b = 2
 x0 = 2
 y0 = 1
 m  = 12
@@ -38,6 +38,10 @@ y_i = y0
 x_aprox = []
 y_aprox = []
 
+eta_x = []
+eta_y = []
+k
+
 for j in range(0 , m+1):
     N = int(math.pow(2, j+2))
     h.append( (b - a) / N)
@@ -60,11 +64,17 @@ for j in range(0 , m+1):
         y_aprox.append(w_y)
 
         if i == N-1:
-            p_x = (numpy.log2(abs((x_aprox[i-3] - x_aprox[i-2]) / (x_aprox[i-2] - x_aprox[i-1] ))))
-            p_y = (numpy.log2(abs((y_aprox[i-3] - y_aprox[i-2]) / (y_aprox[i-2] - y_aprox[i-1] ))))
-            #print(N, p_x, p_y)
-            #p_norma.append(numpy.log2( math.sqrt( math.pow(p_x,2) + math.pow(p_y, 2)) ))
-            #print (N, p_norma[j])
+            eta_x.append(w_x)
+            eta_y.append(w_y)
+
+    if j >= 2:
+        p_x = abs((eta_x[j-2] - eta_x[j-1]) / (eta_x[j-1] - eta_x[j] ))
+        p_y = abs((eta_y[j-2] - eta_y[j-1]) / (eta_y[j-1] - eta_y[j] ))
+        print(N, math.log2(p_x), math.log2(p_y))
+        p_norma.append(numpy.log2( math.sqrt( math.pow(p_x,2) + math.pow(p_y, 2)) ))
+        #print (N, p_norma[k])
+        #k+=1
+
     dominio_t.append(b)        
     matriz_xn.append(x_aprox)
     matriz_yn.append(y_aprox)
@@ -77,7 +87,7 @@ for j in range(0 , m+1):
 
 l = j = 0
 
-#plt.plot (matriz_t[12],matriz_xn[12], color = "#000000", linestyle = "-", label = "Curva x numérica " + f"{12}")
+""" #plt.plot (matriz_t[12],matriz_xn[12], color = "#000000", linestyle = "-", label = "Curva x numérica " + f"{12}")
 plt.plot (matriz_t[12],matriz_xn[12], color = "#000000", linestyle = "-", label = "Presa ")
 # plt.plot (matriz_t[5],matriz_xn[5], color = "#000000", linestyle = "-", label = "Presa ")
 
@@ -92,3 +102,4 @@ plt.xlabel("Tempo")
 plt.title("Presa x Predador")
 plt.legend()
 plt.show()
+ """
