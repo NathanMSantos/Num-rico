@@ -19,7 +19,7 @@ y0 = np.array([1, 1])
 #funções trabalhadas e suas derivadas
 ###################################
 
-def f(y,t):                 # f tq dy/dt = f(y,t)
+def f(y):                 # f tq dy/dt = f(y,t)
 
     return np.array( [ y[0]-5*y[1], \
                        y[0]-3*y[1] ])
@@ -56,14 +56,14 @@ for n in n_lista:
         t[i+1] = t0 + (i+1)*h
 
         # chute inicial
-        ytil = y[i] + h*f(y[i],t[i])
+        ytil = y[i] + h*f(y[i])
         alteracao = 1.0
         
         # iteracoes de pto fixo
         r = 0
         while r<20 and alteracao > 0.0001:
             ytil0 = ytil
-            ytil = y[i] + h*f(ytil,t[i+1])
+            ytil = y[i] + h*f(ytil)
             alteracao = np.linalg.norm(ytil-ytil0)
             r = r + 1
             print (r, ytil, alteracao )
@@ -71,3 +71,4 @@ for n in n_lista:
         
         y[i+1] = ytil
 ################################################################################
+
