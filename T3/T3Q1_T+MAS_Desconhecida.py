@@ -7,10 +7,12 @@ import math
 
 t0 = 0.0   # instante inicial
 tf = 5.0   # instante final
-n_lista = [4, 8, 16, 32, 64, 128, \
-          256, 512, 1024, 2048]     # qtd de ptos a cada execucao
-
+m = 12    # qtd de ptos a cada execucao
+n_lista = []
+for i in range (1, m+1):
+    n_lista.append(int(math.pow(2, i+2)))
 y0 = np.array([2, 1])
+
 
 #funções trabalhadas e suas derivadas
 
@@ -27,6 +29,8 @@ erro_lista = []
 norma = []
 j=0
 
+norma.append(y0)
+
 for n in n_lista:
     
     h = (tf-t0)/float(n)
@@ -42,7 +46,7 @@ for n in n_lista:
         t[i+1] = t0 + (i+1)*h
 
         # chute inicial
-        ytil = y[i] + h*(1/2)*(f(y[i],t[i]) + f(y[i],t[i]))
+        ytil = y[i] + h*f(y[i], t[i])
         alteracao = 1.0
         
         # iteracoes de pto fixo
@@ -58,7 +62,7 @@ for n in n_lista:
     
     #cálculo da norma
     # norma.append(np.linalg.norm(y[i]))
-    norma.append(y[i])
+    norma.append(y[i+1])
     
     t_lista.append(t)
     y_lista.append(y)
@@ -66,7 +70,7 @@ for n in n_lista:
 
     # Cálculo do erro
     if j >= 2:
-        erro_lista.append((norma[j-2] - norma[j-1])/(norma[j-1] - norma[j]))
+        erro_lista.append(abs(np.linalg.norm((norma[j-2]) - norma[j-1])/np.linalg.norm(norma[j-1] - norma[j])))
         print(np.log2(erro_lista))
     j+=1
 

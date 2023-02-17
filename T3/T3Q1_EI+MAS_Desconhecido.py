@@ -64,9 +64,9 @@ for n in n_lista:
     h_lista.append(h)
 
     # Cálculo do erro
-    if j >= 2:
+    if j > 2:
         erro_lista.append((norma[j-2] - norma[j-1])/(norma[j-1] - norma[j]))
-        print(np.log2(erro_lista))
+        print(np.log2(np.linalg.norm(erro_lista)))
     j+=1
 
 # exibe o grafico com as curvas de y[0]
