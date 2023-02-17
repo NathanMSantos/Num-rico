@@ -60,7 +60,74 @@ def main():
                 alteracao = np.linalg.norm(ytil-ytil0)
                 r = r + 1
                 print (r, ytil, alteracao )
-        
-        
-        y[i+1] = ytil
+            y[i+1] = ytil
+        # adiciona nos dados para o grafico e a tabela
+    
+    t_lista.append(t)
+    y_lista.append(y)
+    h_lista.append(h)
+    erro_lista.append( np.linalg.norm(y[n] - solucao(tf)) )
+    
+    
+    # exibe o grafico com as curvas de y[0]
+
+    for w in range(len(n_lista)):
+        t = t_lista[w]
+        y = y_lista[w]
+    
+        plt.plot(t, y[:,0], label="n=%d"%n_lista[w])
+
+    plt.title('aprox para a 1a coordenada')
+    plt.xlabel('t[i]')
+    plt.ylabel('y[0][i]')
+    plt.grid(True)
+    plt.legend()
+    plt.show()
+
+    # exibe o grafico com as curvas de y[1]
+
+    for w in range(len(n_lista)):
+        t = t_lista[w]
+        y = y_lista[w]
+    
+        plt.plot(t, y[:,1], label="n=%d"%n_lista[w])
+
+    plt.title('aprox para a 2a coordenada')
+    plt.xlabel('t[i]')
+    plt.ylabel('y[1][i]')
+    plt.grid(True)
+    plt.legend()
+    plt.show()
+
+    # faz a curva em 2d
+
+    for w in range(len(n_lista)):
+        y = y_lista[w]
+    
+        plt.plot(y[:,0], y[:,1], label="n=%d"%n_lista[w])
+
+    plt.title('aprox para a curva em 2d')
+    plt.xlabel('y[0][i]')
+    plt.ylabel('y[1][i]')
+    plt.grid(True)
+    plt.legend()
+    plt.show()
+
+
+    # exibe o grafico com o erro
+
+    plt.title('decaimento do erro no instante final')
+    plt.xlabel('h')
+    plt.ylabel('erro(h, %1.2f)'%tf)
+    plt.grid(True)
+    plt.plot(h_lista,erro_lista)
+    plt.show()
+
+    # escreve a tabela
+
+    print()
+    print("n", "h", "erro(h, %1.2f)"%tf, sep='\t')
+    for w in range(len(n_lista)):
+        print(n_lista[w], h_lista[w], erro_lista[w], sep='\t')
+
 main()
