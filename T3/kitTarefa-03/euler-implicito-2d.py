@@ -25,7 +25,7 @@ def f(y,t):                 # f tq dy/dt = f(y,t)
 
 def solucao(t):             # expressao analitica para y(t)
 
-    return (70/9) * math.pow(math.e, -0.3*t) - (43/9) * math.pow(math.e, -1.2*t)
+    return return (t+1) / (t+2) * np.array( [cos(t), sin(t)] )
 
     
     

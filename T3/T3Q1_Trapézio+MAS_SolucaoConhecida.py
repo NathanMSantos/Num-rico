@@ -19,19 +19,15 @@ y0 = np.array([1, 1])
 #funções trabalhadas e suas derivadas
 ###################################
 
+def f(y,t):                 # f tq dy/dt = f(y,t)
 
+    return np.array( [ y[0]-5*y[1], \
+                       y[0]-3*y[1] ])
 def y1(t):
     return((math.pow(math.e,-t))*((math.cos(t))-3*math.sin(t)))
 
 def y2(t):
     return((math.pow(math.e,-t))*((math.cos(t))-math.sin(t)))
-
-def dv_fy1(y1_i,y2_i):
-    return (y1_i-5*y2_i)
-
-def dv_fy2(y1_i, y2_i):
-    return (y1_i-3*y2_i)
-
 
 ###################################
 # executar o metodo do trapézio e MAS
