@@ -25,11 +25,13 @@ def f(y,t):                 # f tq dy/dt = f(y,t)
 h_lista = []
 t_lista = []
 y_lista = []
+q = []
 erro_lista = []
-norma = []
+valor_aprox = []
 j=0
+k=0
 
-norma.append(y0)
+valor_aprox.append(y0)
 
 for n in n_lista:
     
@@ -62,61 +64,65 @@ for n in n_lista:
     
     #cálculo da norma
     # norma.append(np.linalg.norm(y[i]))
-    norma.append(y[i+1])
+    valor_aprox.append(y[i+1]) #valor aproximado em um memso tempo T
     
     t_lista.append(t)
     y_lista.append(y)
     h_lista.append(h)
 
-    # Cálculo do erro
+    # Cálculo da ordem de convergência e do erro
     if j >= 2:
-        erro_lista.append(abs(np.linalg.norm((norma[j-2]) - norma[j-1])/np.linalg.norm(norma[j-1] - norma[j])))
-        print(np.log2(erro_lista))
+        valor_absoluto = abs(np.linalg.norm((valor_aprox[j-2]) - valor_aprox[j-1])/np.linalg.norm(valor_aprox[j-1] - valor_aprox[j]))
+        q.append(np.log2(valor_absoluto))
+
+        erro_lista.append((abs(np.linalg.norm(valor_aprox[j-1] - valor_aprox[j]) / (math.pow(2, q[k]) - 1))))
+        print(erro_lista)
+        k+=1
     j+=1
 
 # exibe o grafico com as curvas de y[0]
 
-# for w in range(len(n_lista)):
-#     t = t_lista[w]
-#     y = y_lista[w]
+for w in range(len(n_lista)):
+    t = t_lista[w]
+    y = y_lista[w]
     
-#     plt.plot(t, y[:,0], label="n=%d"%n_lista[w])
+    plt.plot(t, y[:,0], label="n=%d"%n_lista[w])
 
-# plt.title('aprox para a 1a coordenada')
-# plt.xlabel('t[i]')
-# plt.ylabel('y[0][i]')
-# plt.grid(True)
-# plt.legend()
-# plt.show()
+plt.title('aprox para a 1a coordenada')
+plt.xlabel('t[i]')
+plt.ylabel('y[0][i]')
+plt.grid(True)
+plt.legend()
+plt.show()
 
-# # exibe o grafico com as curvas de y[1]
+# exibe o grafico com as curvas de y[1]
 
-# for w in range(len(n_lista)):
-#     t = t_lista[w]
-#     y = y_lista[w]
+for w in range(len(n_lista)):
+    t = t_lista[w]
+    y = y_lista[w]
     
-#     plt.plot(t, y[:,1], label="n=%d"%n_lista[w])
+    plt.plot(t, y[:,1], label="n=%d"%n_lista[w])
 
-# plt.title('aprox para a 2a coordenada')
-# plt.xlabel('t[i]')
-# plt.ylabel('y[1][i]')
-# plt.grid(True)
-# plt.legend()
-# plt.show()
+plt.title('aprox para a 2a coordenada')
+plt.xlabel('t[i]')
+plt.ylabel('y[1][i]')
+plt.grid(True)
+plt.legend()
+plt.show()
 
-# # faz a curva em 2d
+# faz a curva em 2d
 
-# for w in range(len(n_lista)):
-#     y = y_lista[w]
+for w in range(len(n_lista)):
+    y = y_lista[w]
     
-#     plt.plot(y[:,0], y[:,1], label="n=%d"%n_lista[w])
+    plt.plot(y[:,0], y[:,1], label="n=%d"%n_lista[w])
 
-# plt.title('aprox para a curva em 2d')
-# plt.xlabel('y[0][i]')
-# plt.ylabel('y[1][i]')
-# plt.grid(True)
-# plt.legend()
-# plt.show()
+plt.title('aprox para a curva em 2d')
+plt.xlabel('y[0][i]')
+plt.ylabel('y[1][i]')
+plt.grid(True)
+plt.legend()
+plt.show()
 
 # exibe o grafico com o erro
 
