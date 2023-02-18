@@ -11,7 +11,10 @@ import math
 
 t0 = 0.0                    # instante inicial
 tf = 5.0                    # instante final
-n_lista = [40, 80, 160]     # qtd de ptos a cada execucao
+n_lista = []                # qtd de ptos a cada execucao
+m = 12
+for i in range(1, m+1):
+    n_lista.append(int(math.pow(2, i+2)))
 y0 = np.array([1, 1])
 
 

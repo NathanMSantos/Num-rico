@@ -1,1 +1,3 @@
 para escolha do chute inicial -> burden - pg 62 Fixed-Point theorem
+para escolha do passo de integração -> calcular!
+
