@@ -11,8 +11,10 @@ import math
 
 t0 = 0.0                    # instante inicial
 tf = 5.0                    # instante final
-n_lista = [4, 8, 16, 32, 64, 128, \
-          256, 512, 1024, 2048]     # qtd de ptos a cada execucao
+n_lista = []     # qtd de ptos a cada execucao
+m=12
+for i in range(1, m+1):
+    n_lista.append(int(math.pow(2,i+2)))
 y0 = np.array([1, 1])
 
 
@@ -89,8 +91,8 @@ for n in n_lista:
     
     
     # Cálculo da ordem de convergência e do erro
-    if j >= 2:
-        valor_absoluto = abs(np.linalg.norm((valor_aprox[j-2]) - valor_aprox[j-1])/np.linalg.norm(valor_aprox[j-1] - valor_aprox[j]))
+    if j >= 1:
+        valor_absoluto = abs(erro_lista[j-1]/erro_lista[j])
         q.append(np.log2(valor_absoluto))
     j+=1
 
