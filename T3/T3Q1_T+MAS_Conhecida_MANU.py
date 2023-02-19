@@ -9,8 +9,8 @@ import math
 ###################################
 
 
-t0 = 0.0                    # instante inicial
-tf = 1.0                    # instante final
+t0 = 0.0                   # instante inicial
+tf = 1.0                   # instante final
 n_lista = []     # qtd de ptos a cada execucao
 m = 12
 for i in range(1, m+1):
@@ -41,7 +41,8 @@ h_lista = []
 t_lista = []
 y_lista = []
 erro_lista = []
-
+q = []
+j=0
 for n in n_lista:
     
     h = (tf-t0)/float(n)
@@ -59,7 +60,7 @@ for n in n_lista:
         t[i+1] = t0 + (i+1)*h
 
         # chute inicial
-        ytil = y[i] + h*(1/2)*(f(y[i],t[i]) + f(y[i],t[i]))
+        ytil = y[i] + h*(f(y[i],t[i]))
         alteracao = 1.0
         
         # iteracoes de pto fixo
@@ -80,7 +81,14 @@ for n in n_lista:
     t_lista.append(t)
     y_lista.append(y)
     h_lista.append(h)
+    #cálculo do erro
     erro_lista.append( np.linalg.norm(y[n] - solucao(tf)) )
+
+    # Cálculo da ordem de convergência
+    if j >= 1:
+        valor_absoluto = abs(erro_lista[j-1]/erro_lista[j])
+        q.append(np.log2(valor_absoluto))
+    j+=1
     
     
 # exibe o grafico com as curvas de y[0]
@@ -138,8 +146,12 @@ plt.plot(h_lista,erro_lista)
 plt.show()
 
 # escreve a tabela
-
+k=0
 print()
 print("n", "h", "erro(h, %1.2f)"%tf, sep='\t')
 for w in range(len(n_lista)):
-    print(n_lista[w], h_lista[w], erro_lista[w], sep='\t')
+    if w >= 1:
+        print(n_lista[w], h_lista[w], erro_lista[w], q[k], sep='\t')
+        k+=1
+    else:
+        print(n_lista[w], h_lista[w], erro_lista[w], sep='\t')

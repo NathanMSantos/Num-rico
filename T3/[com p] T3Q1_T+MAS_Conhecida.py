@@ -65,7 +65,7 @@ for n in n_lista:
         t[i+1] = t0 + (i+1)*h
 
         # chute inicial
-        ytil = y[i] + h*(1/2)*(f(y[i],t[i]) + f(y[i],t[i]))
+        ytil = y[i] + h*(f(y[i],t[i]))
         alteracao = 1.0
         
         # iteracoes de pto fixo
