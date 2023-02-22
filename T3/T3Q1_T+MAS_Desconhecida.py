@@ -95,6 +95,26 @@ plt.grid(True)
 plt.legend()
 plt.show()
 
+# exibe o grafico com as curvas de y[0] --- modificado
+
+
+t = t_lista[2]
+y = y_lista[2]
+plt.plot(t, y[:,0], label="n=%d"%n_lista[2], color = "#000000", linestyle = "-.")
+t = t_lista[7]
+y = y_lista[7]
+plt.plot(t, y[:,0], label="n=%d"%n_lista[7], color = "#000000", linestyle = ":")
+t = t_lista[10]
+y = y_lista[10]
+plt.plot(t, y[:,0], label="n=%d"%n_lista[10], color = "#000000", linestyle = "--")
+
+plt.title('aprox para a 1a coordenada')
+plt.xlabel('t[i]')
+plt.ylabel('y[0][i]')
+plt.grid(True)
+plt.legend()
+plt.show()
+
 # exibe o grafico com as curvas de y[1]
 
 for w in range(len(n_lista)):
@@ -102,6 +122,26 @@ for w in range(len(n_lista)):
     y = y_lista[w]
     
     plt.plot(t, y[:,1], label="n=%d"%n_lista[w])
+
+plt.title('aprox para a 2a coordenada')
+plt.xlabel('t[i]')
+plt.ylabel('y[1][i]')
+plt.grid(True)
+plt.legend()
+plt.show()
+
+# exibe o grafico com as curvas de y[1] --- modificado
+
+
+t = t_lista[2]
+y = y_lista[2]
+plt.plot(t, y[:,1], label="n=%d"%n_lista[2], color = "#000000", linestyle = "-.")
+t = t_lista[7]
+y = y_lista[7]
+plt.plot(t, y[:,1], label="n=%d"%n_lista[7], color = "#000000", linestyle = ":")
+t = t_lista[10]
+y = y_lista[10]
+plt.plot(t, y[:,1], label="n=%d"%n_lista[10], color = "#000000", linestyle = "--")
 
 plt.title('aprox para a 2a coordenada')
 plt.xlabel('t[i]')
@@ -126,11 +166,11 @@ plt.show()
 
 # exibe o grafico com o erro
 
-""" plt.title('decaimento do erro no instante final')
+"""plt.title('decaimento do erro no instante final')
 plt.xlabel('h')
 plt.ylabel('erro(h, %1.2f)'%tf)
 plt.grid(True)
-plt.plot(h_lista,erro_lista)
+plt.plot(h_lista,erro_lista, color = "#000000")
 plt.show()"""
 
 # escreve a tabela
@@ -143,3 +183,16 @@ for w in range(len(n_lista)):
         k+=1
     else: 
         print(n_lista[w], h_lista[w], sep='\t')
+
+j=0
+with open("behavior_convergence_T3_Q1_T+MAS_Desconhecida.txt", 'w', encoding='utf-8') as file2:
+    file2.write("ORDER BEHAVIOR CONVERGENCE TABLE\n");
+    l=0
+    for j in range (len(n_lista)):
+        if j >=2 :
+            #print(" %5d  %9.3e  %9.3e \n" % (math.pow(2, i+2),h, erro[i]));
+            file2.write("{:5d} & {:9.3e} & {:9.3e} & {:9.3e}\\\\\n".format(n_lista[j], h_lista[j], erro_lista[l], q[l]))
+            l+=1   
+        else:
+            #print(" %5d  %9.3e  %9.3e  %9.3e \n" % (math.pow(2, i+2),h, erro[i], q[l]));
+            file2.write("{:5d} & {:9.3e}\\\\\n".format(n_lista[j], h_lista[j]))

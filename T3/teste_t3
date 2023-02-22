@@ -140,3 +140,18 @@ print()
 print("n", "h", "erro(h, %1.2f)"%tf, sep='\t')
 for w in range(len(n_lista)):
     print(n_lista[w], h_lista[w], erro_lista[w], sep='\t')
+
+
+with open("behavior_convergence_T3_Q1_T+MAS_Conhecida.txt", 'w', encoding='utf-8') as file2:
+        file2.write("ORDER BEHAVIOR CONVERGENCE TABLE\n");
+        j=l=0
+        for i in range (0, len(n_lista)):
+            if i<1:
+                #print(" %5d  %9.3e  %9.3e \n" % (math.pow(2, i+2),h, erro[i]));
+                file2.write("{:5d} & {:9.3e} & {:9.3e}\\\\\n".format(n_lista[j], h_lista[j],erro_lista[j]))   
+            else:
+                #print(" %5d  %9.3e  %9.3e  %9.3e \n" % (math.pow(2, i+2),h, erro[i], q[l]));
+                #file2.write("{:5d} & {:9.3e} & {:9.3e} & {:9.3e}\\\\\n".format(n_lista[j], h_lista[j], erro_lista[j],p[l]))
+                file2.write("{:5d} & {:9.3e} & {:9.3e}\\\\\n".format(n_lista[j], h_lista[j], erro_lista[j]))
+                l+=1
+            j+=1
